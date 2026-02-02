@@ -1,43 +1,48 @@
 # Homebrew Tap
 
-This is a [Homebrew](https://brew.sh/) tap for installing [YOLO NDJSON Converter](https://yolondjson.zip/).
+This is a [Homebrew](https://brew.sh/) tap for installing my macOS apps.
 
 ## Installation
 
 ```bash
 brew tap amanharshx/tap
-brew install --cask yolo-ndjson-converter
+brew install --cask <cask-name>
 ```
 
 ## Available Casks
 
 | Cask | Description |
 |------|-------------|
+| `theme-toggler` | Menu bar app to toggle macOS light/dark mode |
 | `yolo-ndjson-converter` | Convert Ultralytics NDJSON annotation exports to ML formats |
 
 ## Updating
 
 ```bash
-brew upgrade --cask yolo-ndjson-converter
+brew upgrade --cask <cask-name>
 ```
 
 ## Uninstalling
 
 ```bash
-brew uninstall --cask yolo-ndjson-converter
+brew uninstall --cask <cask-name>
 ```
 
 ## Note on Code Signing
-> **Note:** The app is not yet code-signed (Apple Developer account costs $99/year, Windows EV certificate ~$300/year). I'm planning to get these when I can afford them. 
+> **Note:** These apps are not yet code-signed (Apple Developer account costs $99/year). I'm planning to get one when I can afford it.
 
-The app is not signed with an Apple Developer certificate. The cask automatically removes the quarantine attribute during installation. If you encounter any issues, run:
+The apps are not signed with an Apple Developer certificate. The casks automatically remove the quarantine attribute during installation. If you encounter any issues, run:
 
 ```bash
-xattr -cr "/Applications/YOLO NDJSON Converter.app"
+xattr -cr "/Applications/<App Name>.app"
 ```
 
 ## Links
 
-- [YOLO NDJSON Converter Website](https://yolondjson.zip/)
+### macOS Theme Toggler
+- [GitHub Repository](https://github.com/amanharshx/mac-theme-toggler)
+
+### YOLO NDJSON Converter
+- [Website](https://yolondjson.zip/)
 - [GitHub Repository](https://github.com/amanharshx/YOLO-Ndjson-Zip)
 - [Documentation](https://yolondjson.zip/docs)
