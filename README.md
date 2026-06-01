@@ -14,6 +14,7 @@ brew install --cask <cask-name>
 | Cask | Description |
 |------|-------------|
 | `theme-toggler` | Menu bar app to toggle macOS light/dark mode |
+| `yolo-export-studio` | Desktop app for exporting YOLO datasets with managed runtime support |
 | `yolo-ndjson-converter` | Convert Ultralytics NDJSON annotation exports to ML formats |
 
 ## Updating
@@ -41,6 +42,9 @@ xattr -cr "/Applications/<App Name>.app"
 
 ### macOS Theme Toggler
 - [GitHub Repository](https://github.com/amanharshx/mac-theme-toggler)
+
+### YOLO Export Studio
+- [GitHub Repository](https://github.com/amanharshx/yolo-export-studio)
 
 ### YOLO NDJSON Converter
 - [Website](https://yolondjson.zip/)
