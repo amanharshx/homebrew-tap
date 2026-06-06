@@ -1,0 +1,41 @@
+class YoloExportStudio < Formula
+  desc "Desktop app for exporting Ultralytics YOLO models"
+  homepage "https://github.com/amanharshx/yolo-export-studio"
+  url "https://github.com/amanharshx/yolo-export-studio/releases/download/v0.1.2/yolo-export-studio-linux-x86_64.tar.gz"
+  sha256 "2eaeac16ae66decda9df47ccea90d7ded97e2986854d14d9b70214da51be86d1"
+  license "MIT"
+
+  depends_on :linux
+
+  def install
+    root_dir = buildpath.children.find do |path|
+      path.directory? && (path/"bin/yolo-export-studio").exist?
+    end
+
+    root_dir ||= begin
+      root_dirs = buildpath.children.select(&:directory?)
+      payload_dirs = root_dirs.select { |path| (path/"bin").directory? || (path/"share").directory? }
+      payload_dirs.one? ? payload_dirs.first : buildpath
+    end
+
+    odie "missing bin/yolo-export-studio in extracted payload" unless (root_dir/"bin/yolo-export-studio").exist?
+
+    libexec.install root_dir.children
+    bin.install_symlink libexec/"bin/yolo-export-studio"
+    (share/"applications").install root_dir/"share/applications/yolo-export-studio.desktop"
+    (share/"icons/hicolor/256x256/apps").install root_dir/"share/icons/hicolor/256x256/apps/yolo-export-studio.png"
+    prefix.install_metafiles
+  end
+
+  test do
+    wrapper_link = bin/"yolo-export-studio"
+    appimage_path = libexec/"libexec/yolo-export-studio.AppImage"
+    desktop_path = share/"applications/yolo-export-studio.desktop"
+    icon_path = share/"icons/hicolor/256x256/apps/yolo-export-studio.png"
+
+    assert_predicate wrapper_link, :symlink?
+    assert_path_exists appimage_path
+    assert_path_exists desktop_path
+    assert_path_exists icon_path
+  end
+end
