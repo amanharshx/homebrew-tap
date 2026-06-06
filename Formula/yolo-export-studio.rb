@@ -2,6 +2,7 @@ class YoloExportStudio < Formula
   desc "Desktop app for exporting Ultralytics YOLO models"
   homepage "https://github.com/amanharshx/yolo-export-studio"
   url "https://github.com/amanharshx/yolo-export-studio/releases/download/v0.1.2/yolo-export-studio-linux-x86_64.tar.gz"
+  version "0.1.2"
   sha256 "2eaeac16ae66decda9df47ccea90d7ded97e2986854d14d9b70214da51be86d1"
   license "MIT"
 
