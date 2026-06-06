@@ -21,10 +21,14 @@ class YoloExportStudio < Formula
 
     odie "missing bin/yolo-export-studio in extracted payload" unless (root_dir/"bin/yolo-export-studio").exist?
 
+    appimage_path = libexec/"libexec/yolo-export-studio.AppImage"
     libexec.install root_dir.children
-    bin.install_symlink libexec/"bin/yolo-export-studio"
-    (share/"applications").install root_dir/"share/applications/yolo-export-studio.desktop"
-    (share/"icons/hicolor/256x256/apps").install root_dir/"share/icons/hicolor/256x256/apps/yolo-export-studio.png"
+    (bin/"yolo-export-studio").write <<~SH
+      #!/bin/sh
+      exec "#{appimage_path}" "$@"
+    SH
+    (share/"applications").install libexec/"share/applications/yolo-export-studio.desktop"
+    (share/"icons/hicolor/256x256/apps").install libexec/"share/icons/hicolor/256x256/apps/yolo-export-studio.png"
     prefix.install_metafiles
   end
 
@@ -34,7 +38,7 @@ class YoloExportStudio < Formula
     desktop_path = share/"applications/yolo-export-studio.desktop"
     icon_path = share/"icons/hicolor/256x256/apps/yolo-export-studio.png"
 
-    assert_predicate wrapper_link, :symlink?
+    assert_path_exists wrapper_link
     assert_path_exists appimage_path
     assert_path_exists desktop_path
     assert_path_exists icon_path
