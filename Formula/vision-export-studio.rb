@@ -1,7 +1,7 @@
-class YoloExportStudio < Formula
-  desc "Desktop app for exporting Ultralytics YOLO models"
-  homepage "https://github.com/amanharshx/yolo-export-studio"
-  url "https://github.com/amanharshx/yolo-export-studio/releases/download/v0.1.2/yolo-export-studio-linux-x86_64.tar.gz"
+class VisionExportStudio < Formula
+  desc "Desktop app for exporting vision models"
+  homepage "https://github.com/amanharshx/vision-export-studio"
+  url "https://github.com/amanharshx/vision-export-studio/releases/download/v0.1.2/yolo-export-studio-linux-x86_64.tar.gz"
   version "0.1.2"
   sha256 "2eaeac16ae66decda9df47ccea90d7ded97e2986854d14d9b70214da51be86d1"
   license "MIT"
@@ -23,7 +23,7 @@ class YoloExportStudio < Formula
 
     appimage_path = libexec/"libexec/yolo-export-studio.AppImage"
     libexec.install root_dir.children
-    (bin/"yolo-export-studio").write <<~SH
+    (bin/"vision-export-studio").write <<~SH
       #!/bin/sh
       exec "#{appimage_path}" "$@"
     SH
@@ -33,7 +33,7 @@ class YoloExportStudio < Formula
   end
 
   test do
-    wrapper_link = bin/"yolo-export-studio"
+    wrapper_link = bin/"vision-export-studio"
     appimage_path = libexec/"libexec/yolo-export-studio.AppImage"
     desktop_path = share/"applications/yolo-export-studio.desktop"
     icon_path = share/"icons/hicolor/256x256/apps/yolo-export-studio.png"
