@@ -1,9 +1,9 @@
 cask "vision-export-studio" do
   arch arm: "aarch64", intel: "x64"
 
-  version "0.1.4"
-  sha256 arm:   "cfc4dbcd47acfc5b14004bc33039ce58fdd063fab2158f5bf0cdd380e062a1f4",
-         intel: "3ca20796eacddc4601b1cc63029f95c663fad690e465ab663837ae45386ab99e"
+  version "0.1.5"
+  sha256 arm:   "975d8c950cfa1134f4672a50171ccfe0803b52ba41f03236dc4c01426831e307",
+         intel: "f322cc390750bb36f07aa73c0fafca67a89f7646ff718babb37878f76854ad20"
 
   url "https://github.com/amanharshx/vision-export-studio/releases/download/v#{version}/Vision.Export.Studio_#{version}_#{arch}.dmg"
   name "Vision Export Studio"
@@ -28,16 +28,16 @@ cask "vision-export-studio" do
   end
 
   zap trash: [
-    "~/.yolo-export-studio",
     "~/.vision-export-studio",
-    "~/Library/Application Support/YOLO Export Studio",
+    "~/.yolo-export-studio",
     "~/Library/Application Support/Vision Export Studio",
-    "~/Library/Caches/YOLO Export Studio",
+    "~/Library/Application Support/YOLO Export Studio",
     "~/Library/Caches/Vision Export Studio",
-    "~/Library/Preferences/com.amanharshx.yoloexportstudio.plist",
+    "~/Library/Caches/YOLO Export Studio",
     "~/Library/Preferences/com.amanharshx.visionexportstudio.plist",
-    "~/Library/Saved Application State/com.amanharshx.yoloexportstudio.savedState",
+    "~/Library/Preferences/com.amanharshx.yoloexportstudio.plist",
     "~/Library/Saved Application State/com.amanharshx.visionexportstudio.savedState",
+    "~/Library/Saved Application State/com.amanharshx.yoloexportstudio.savedState",
   ]
 
   caveats <<~EOS
