@@ -1,0 +1,81 @@
+name: Update Tap
+
+run-name: >
+  Update ${{ inputs.cask || inputs.formula }} -> ${{ inputs.version }}${{ inputs.request_id && format(' ({0})', inputs.request_id) || '' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New release version (with or without leading v, e.g. 0.1.6 or v0.1.6)"
+        required: true
+        type: string
+      cask:
+        description: "Cask name to update (Casks/<name>.rb)"
+        required: false
+        type: string
+      formula:
+        description: "Formula name to update (Formula/<name>.rb)"
+        required: false
+        type: string
+      request_id:
+        description: "Unique caller-generated ID used to identify this workflow run"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-tap-${{ inputs.cask || inputs.formula }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update cask/formula
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          args=(--version "${{ inputs.version }}")
+          if [ -n "${{ inputs.cask }}" ]; then
+            args+=(--cask "${{ inputs.cask }}")
+          fi
+          if [ -n "${{ inputs.formula }}" ]; then
+            args+=(--formula "${{ inputs.formula }}")
+          fi
+          python3 .github/scripts/update_tap.py "${args[@]}"
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          CASK="${{ inputs.cask }}"
+          FORMULA="${{ inputs.formula }}"
+          VERSION="${{ inputs.version }}"
+          VERSION="${VERSION#v}"
+
+          if [ -n "$CASK" ]; then
+            git add "Casks/${CASK}.rb"
+          fi
+          if [ -n "$FORMULA" ]; then
+            git add "Formula/${FORMULA}.rb"
+          fi
+
+          if git diff --cached --quiet; then
+            echo "Nothing to update; already at ${VERSION}."
+            exit 0
+          fi
+
+          NAME="${CASK:-$FORMULA}"
+          git commit -m "${NAME}: update to v${VERSION}"
+          git push
