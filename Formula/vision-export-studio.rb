@@ -1,9 +1,9 @@
 class VisionExportStudio < Formula
   desc "Desktop app for exporting vision models"
   homepage "https://github.com/amanharshx/vision-export-studio"
-  url "https://github.com/amanharshx/vision-export-studio/releases/download/v0.1.10/vision-export-studio-linux-x86_64.tar.gz"
-  version "0.1.10"
-  sha256 "229f0cb007ec065881c78fc8ca1cc869ce575156ccc8514c892a8643084c29eb"
+  url "https://github.com/amanharshx/vision-export-studio/releases/download/v0.1.11/vision-export-studio-linux-x86_64.tar.gz"
+  version "0.1.11"
+  sha256 "bf0bdd10b64f2f3af90502e2ea6275655e5397d1051c883828cb1067386f8200"
   license "MIT"
 
   depends_on :linux
