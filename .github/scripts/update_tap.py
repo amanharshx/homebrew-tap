@@ -205,21 +205,29 @@ def update_file(path: pathlib.Path, new_version: str) -> None:
         print(f"{path.name}: arm   {arm_sha}  {arm_url}")
         print(f"{path.name}: intel {intel_sha}  {intel_url}")
     else:
-        if len(SINGLE_SHA_RE.findall(text)) != 1:
+        # Only the main artifact's sha256 (before any `resource` block) is
+        # managed here. Resource checksums (e.g. pinned wheels) are updated by
+        # hand, so we splice the file into head/tail around the first resource.
+        resource_match = re.search(r'^\s*resource\s+"', text, re.MULTILINE)
+        head_end = resource_match.start() if resource_match else len(text)
+        head, tail = text[:head_end], text[head_end:]
+
+        if len(SINGLE_SHA_RE.findall(head)) != 1:
             fail(
-                f"{path}: expected exactly one `sha256 \"...\"` line; "
-                "files with multiple checksums need a dedicated shape"
+                f"{path}: expected exactly one top-level `sha256 \"...\"` line "
+                "before any resource block"
             )
         asset_url = resolve_url(url_template, new_version, old_version, None, path)
         digest = sha256_of_url(asset_url)
 
-        text = update_version(text, new_version)
-        text = update_url_literal_version(text, old_version, new_version, path)
-        text = SINGLE_SHA_RE.sub(
+        head = update_version(head, new_version)
+        head = update_url_literal_version(head, old_version, new_version, path)
+        head = SINGLE_SHA_RE.sub(
             lambda m: f'{m.group("prefix")}{digest}{m.group("suffix")}',
-            text,
+            head,
             count=1,
         )
+        text = head + tail
         print(f"{path.name}: {digest}  {asset_url}")
 
     path.write_text(text)

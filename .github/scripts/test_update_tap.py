@@ -156,5 +156,41 @@ class UpdateTapTests(unittest.TestCase):
         self.assertEqual(before, path.read_text())
 
 
+    def test_formula_with_resources_updates_only_main_sha(self) -> None:
+        path = self._write(
+            "Formula/withres.rb",
+            f"""
+            class Withres < Formula
+              include Language::Python::Virtualenv
+              desc "x"
+              homepage "https://github.com/me/withres"
+              url "https://github.com/me/withres/archive/refs/tags/v1.0.0.tar.gz"
+              version "1.0.0"
+              sha256 "{ZERO}"
+              license "MIT"
+
+              resource "pillow" do
+                url "https://files.pythonhosted.org/packages/xx/pillow-9-cp312-macosx_11_0_arm64.whl"
+                sha256 "{A64}"
+              end
+
+              resource "pyobjc-core" do
+                url "https://files.pythonhosted.org/packages/yy/pyobjc_core-9-cp312-universal2.whl"
+                sha256 "{C64}"
+              end
+            end
+            """,
+        )
+        u.update_file(path, "2.0.0")
+        out = path.read_text()
+        self.assertIn('version "2.0.0"', out)
+        self.assertIn("/tags/v2.0.0.tar.gz", out)
+        # main artifact sha updated (fake_sha default -> D64)
+        self.assertIn(f'sha256 "{D64}"', out)
+        # pinned resource checksums left untouched
+        self.assertIn(f'sha256 "{A64}"', out)
+        self.assertIn(f'sha256 "{C64}"', out)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
