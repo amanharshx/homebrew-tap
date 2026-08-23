@@ -23,15 +23,12 @@ class Clipfit < Formula
     sha256 "e106f395531e67694376b0f1184612cbeea3ec8b9bf56b55ef41d026171d2a2d"
   end
 
-  on_arm do
-    resource "pillow" do
+  resource "pillow" do
+    on_arm do
       url "https://files.pythonhosted.org/packages/d8/66/9a386a92561f402389a4fc70c18838bf6d35eb5eb5c6850b4b2dc64f5048/pillow-12.3.0-cp312-cp312-macosx_11_0_arm64.whl"
       sha256 "ffd0c5368496f41b0944be820fcb7a838aa6e623d250b01acf2643939c3f99d7"
     end
-  end
-
-  on_intel do
-    resource "pillow" do
+    on_intel do
       url "https://files.pythonhosted.org/packages/37/bf/fb3ebff8ddcb76aac5a01389251bbbb9519922a9b520d8247c1ca864a25d/pillow-12.3.0-cp312-cp312-macosx_10_13_x86_64.whl"
       sha256 "ba09209fbe443b4acccebe845d8a138b89a8f4fbaeedd44953490b5315d5e965"
     end
@@ -39,7 +36,6 @@ class Clipfit < Formula
 
   def install
     venv = virtualenv_create(libexec, "python3.12")
-    python = Formula["python@3.12"].opt_bin/"python3.12"
     # Homebrew caches downloads with a "<sha>--" filename prefix that pip won't
     # accept as a wheel name, so copy each to its canonical filename first.
     wheels = resources.map do |r|
@@ -49,7 +45,7 @@ class Clipfit < Formula
     end
     # The venv is created --without-pip, so drive pip from the brewed python
     # with --python pointing at the venv (this is how Homebrew installs too).
-    system python, "-m", "pip", "--python=#{libexec}/bin/python", "install",
+    system "python3.12", "-m", "pip", "--python=#{libexec}/bin/python", "install",
            "--no-deps", "--no-index", *wheels
     # clipfit itself is pure Python; its deps are already in the venv.
     venv.pip_install_and_link buildpath
