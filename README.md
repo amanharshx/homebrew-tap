@@ -30,6 +30,7 @@ brew install amanharshx/tap/<formula>
 
 ### Formulae
 
+- `clipfit` — Shrink clipboard images to fit LLM chats (fewer pixels, fewer tokens)
 - `vision-export-studio` — Linux Homebrew launcher for Vision Export Studio
 
 ## Update / Uninstall
@@ -52,6 +53,7 @@ Use `brew uninstall --cask --zap <token>` for casks when you also want Homebrew 
 
 ## Links
 
+- [clipfit](https://github.com/amanharshx/clipfit)
 - [Theme Toggler](https://github.com/amanharshx/mac-theme-toggler)
 - [Vision Export Studio](https://github.com/amanharshx/vision-export-studio)
 - [YOLO NDJSON Converter](https://github.com/amanharshx/YOLO-Ndjson-Zip)
