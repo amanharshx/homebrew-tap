@@ -3,9 +3,9 @@ class Clipfit < Formula
 
   desc "Shrink clipboard images to fit LLM chats (fewer pixels, fewer tokens)"
   homepage "https://github.com/amanharshx/clipfit"
-  url "https://github.com/amanharshx/clipfit/archive/refs/tags/v0.3.0.tar.gz"
-  version "0.3.0"
-  sha256 "a05ea9446bc47703951a6d3c2f8d936271510ba466be71e639f87eef15001862"
+  url "https://github.com/amanharshx/clipfit/archive/refs/tags/v0.3.1.tar.gz"
+  version "0.3.1"
+  sha256 "8a671f06187c1fb881d5da2a0443c07f58a2f1f223837713eea2f3b2895aa5ec"
   license "MIT"
 
   depends_on "python@3.12"
