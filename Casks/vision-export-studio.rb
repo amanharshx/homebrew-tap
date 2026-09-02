@@ -1,9 +1,9 @@
 cask "vision-export-studio" do
   arch arm: "aarch64", intel: "x64"
 
-  version "0.1.12"
-  sha256 arm:   "6f460112fb65685a6151865aade7d57396cf444f9c5134d5023e18c616af90eb",
-         intel: "ebe8d762f69f969c3f169cd59e6c987ca01f0bb841c397f42e47fe0a8381bff9"
+  version "0.1.13"
+  sha256 arm:   "9d8d30d9feb7030e239279215357d82fc9066a8fa8d1205de8b1b2947a92bc16",
+         intel: "8030cd4cbbfd552b76b0b028cb7606fc9a94b24a955f43ff6ca63bd0edb3a00f"
 
   url "https://github.com/amanharshx/vision-export-studio/releases/download/v#{version}/Vision.Export.Studio_#{version}_#{arch}.dmg"
   name "Vision Export Studio"
