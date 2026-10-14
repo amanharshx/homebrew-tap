@@ -1,9 +1,9 @@
 cask "yolo-ndjson-converter" do
   arch arm: "aarch64", intel: "x64"
 
-  version "0.3.17"
-  sha256 arm:   "160776c26e417ed33501ea079a9aba466d4b3f1a7bf0053d3dd1f8cdacfcf6ae",
-         intel: "0da677dd417007cf529d54cc875cecdfbbca2cafffb39f59458740b56d8f5caa"
+  version "0.4.0"
+  sha256 arm:   "ef297941f10572acfd521b1c260fb43c60792c2a89abc2d9bba6d613819ed7c6",
+         intel: "107b2ae285b8c86eacb9361e0b3a6b3411c5efc02f6d03203e9dbfd3453a69f2"
 
   url "https://github.com/amanharshx/YOLO-Ndjson-Zip/releases/download/v#{version}/YOLO.NDJSON.Converter_#{version}_#{arch}.dmg",
       verified: "github.com/amanharshx/YOLO-Ndjson-Zip/"
